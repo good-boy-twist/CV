@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doyoung Lee — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F7F5EF;
+    --paper-raised: #FFFFFF;
+    --ink: #1C2321;
+    --accent: #4B6FA0;
+    --accent-soft: rgba(75,111,160,0.10);
+    --line: #DAD4C5;
+    --muted: #726C5E;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  .page{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 88px 28px 120px;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position: relative;
+    margin-bottom: 64px;
+  }
+
+  .header-top{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .name{
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(38px, 6vw, 54px);
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+
+  .role{
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 500;
+    margin: 0 0 22px;
+  }
+
+  .contact-row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 22px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .contact-label{
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 6px;
+  }
+
+  .contact-row a{ color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .contact-row a:hover{ color: var(--accent); border-color: var(--accent); }
+
+  .objective{
+    margin-top: 26px;
+    font-size: 16.5px;
+    color: var(--ink);
+    max-width: 75ch;
+    line-height: 1.75;
+  }
+
+  /* ---------- Sections ---------- */
+  section{ margin-bottom: 56px; }
+
+  .eyebrow{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 26px;
+  }
+
+  .eyebrow::after{
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* ---------- Timeline entries ---------- */
+  .entry{
+    position: relative;
+    padding-left: 26px;
+    border-left: 1px solid var(--line);
+    padding-bottom: 30px;
+  }
+
+  .entry:last-child{ padding-bottom: 0; }
+
+  .entry::before{
+    content: '';
+    position: absolute;
+    left: -4.5px;
+    top: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1.5px solid var(--accent);
+  }
+
+  .entry-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    margin-bottom: 4px;
+  }
+
+  .entry-title{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 18.5px;
+    color: var(--ink);
+  }
+
+  .entry-date{
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .entry-sub{
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .entry ul{
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .entry li{
+    font-size: 14.5px;
+    color: var(--ink);
+    margin-bottom: 5px;
+    line-height: 1.65;
+  }
+
+  .entry li::marker{ color: var(--accent); }
+
+  /* ---------- Skills ---------- */
+  .skills-grid{
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    row-gap: 16px;
+    column-gap: 20px;
+  }
+
+  .skills-label{
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-top: 3px;
+  }
+
+  .tag-row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag{
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12.5px;
+    padding: 5px 11px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    color: var(--ink);
+    background: var(--paper-raised);
+  }
+
+  .tag.accent{
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .tag-group{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 12px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--paper-raised);
+  }
+
+  .tag-group-label{
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .tag-group-divider{
+    width: 1px;
+    height: 12px;
+    background: var(--line);
+  }
+
+  .tag-group-items{
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ---------- Honors ---------- */
+  .honors-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .honors-list li{
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14.5px;
+  }
+
+  .honors-list .h-name{ color: var(--ink); }
+  .honors-list .h-date{
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  footer{
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .print-btn{
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+  .print-btn:hover{ color: var(--accent); border-color: var(--accent); }
+
+  @media print{
+    .print-btn{ display:none; }
+    body{ background: white; }
+    .page{ padding: 20px; }
+  }
+
+  @media (max-width: 560px){
+    .page{ padding: 56px 20px 80px; }
+    .header-top{ flex-direction: column; }
+    .skills-grid{ grid-template-columns: 1fr; row-gap: 8px; }
+    .skills-label{ padding-top: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="header-top">
+      <div>
+        <h1 class="name">Doyoung Lee</h1>
+        <p class="role">Pharm.D Candidate · Computer-Aided Drug Design</p>
+      </div>
+    </div>
+
+    <p class="objective">A dedicated pharmacy student with a passion for computer-aided drug design (CADD), seeking to leverage computational methodologies to accelerate drug discovery and development. Experienced in molecular interactions and structure-based drug design, with a strong foundation in medicinal chemistry. Interested in developing metabolomics-based toxicity prediction models for new drug candidates.</p>
+
+    <div class="contact-row">
+      <span>Dongjak-gu, Seoul, South Korea</span>
+      <span class="contact-label">Contact:</span>
+      <a href="tel:+821092711707">+82 10-9271-1707</a>
+      <a href="mailto:leedoyoung03@naver.com">leedoyoung03@naver.com</a>
+    </div>
+  </header>
+
+  <section id="education">
+    <div class="eyebrow">Education</div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">College of Pharmacy, Chung-Ang University</span>
+        <span class="entry-date">May 2022 — Present</span>
+      </div>
+      <div class="entry-sub">Pharm.D coursework, Pharmaceutical Science Track · Seoul, South Korea</div>
+      <ul>
+        <li>GPA 4.31 / 4.5</li>
+        <li>Expected graduation Feb 2028</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">College of Science, Korea University</span>
+        <span class="entry-date">May 2021 — Jan 2022</span>
+      </div>
+      <div class="entry-sub">B.S. Chemistry coursework · Seoul, South Korea</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">Jinhae High School</span>
+        <span class="entry-date">May 2018 — Feb 2021</span>
+      </div>
+      <div class="entry-sub">Graduated with high honors · Changwon, South Korea</div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="eyebrow">Professional Experience</div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">Class Representative, Dept. of Pharmaceutical Science</span>
+        <span class="entry-date">May 2022 — Present</span>
+      </div>
+      <ul>
+        <li>5-year experience representing the Department of Pharmaceutical Science</li>
+        <li>Co-worked with faculty members, including professors, and assisted undergraduate pharmacy students</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">Research Assistant, Asymmetric Catalysis Lab, CAU</span>
+        <span class="entry-date">Dec 2024 — Feb 2025</span>
+      </div>
+      <div class="entry-sub">Instructor: Prof. Kyungsoo Oh</div>
+      <ul>
+        <li>Oxidative azo coupling and diazotization reactions</li>
+        <li>Experienced the overall process of organic synthesis, especially in-situ reactions</li>
+        <li>Operated chemical structure analysis using NMR (500 Hz), mass spectrometry, etc.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">Internship, Computational Drug Design Lab, SNU</span>
+        <span class="entry-date">Jan 2026 — Feb 2026</span>
+      </div>
+      <div class="entry-sub">Instructor: Prof. Juyong Lee</div>
+      <ul>
+        <li>Analyzed protein–ligand interactions using docking software (AutoDock-GPU, ProLIF)</li>
+        <li>Designed the basic architecture of a docking score prediction DL model (XGBoost, GNN)</li>
+        <li>Benchmarked protein–ligand co-folding models (AlphaFold3, Boltz, Chai, Protenix)</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">Internship, ParkLab, KIST</span>
+        <span class="entry-date">Jul 2026 — Aug 2026</span>
+      </div>
+      <div class="entry-sub">Instructor: Dr. Hahnbeom Park</div>
+      <ul>
+        <li>Designed modulator ligands targeting the allosteric site and cGMP-binding site of STING</li>
+        <li>Validated potential feature extensions for a GFlowNet-based ligand generation tool (Flex-Molgen)</li>
+        <li>Used AlphaFold3 to validate generated ligand structures</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="eyebrow">Languages &amp; Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skills-label">Languages</div>
+      <div class="tag-row">
+        <span class="tag">Korean (native)</span>
+        <span class="tag">English (fluent, TOEIC 885)</span>
+        <span class="tag">Japanese (basic)</span>
+        <span class="tag">Deutsch (basic)</span>
+      </div>
+
+      <div class="skills-label">Technical</div>
+      <div class="tag-row">
+        <span class="tag-group">
+          <span class="tag-group-label">Python</span>
+          <span class="tag-group-divider"></span>
+          <span class="tag-group-items">NumPy · Pandas · RDKit · PyTorch</span>
+        </span>
+        <span class="tag">Linux OS</span>
+        <span class="tag">Slurm</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="honors">
+    <div class="eyebrow">Honors &amp; Awards</div>
+    <ul class="honors-list">
+      <li>
+        <span class="h-name">Department Primary Honor Scholarship,<br>College of Pharmacy</span>
+        <span class="h-date">Spring 2026</span>
+      </li>
+      <li>
+        <span class="h-name">Department Secondary Honor Scholarship,<br>College of Pharmacy</span>
+        <span class="h-date">Fall 2022, Spring 2023, Fall 2023, Spring 2024</span>
+      </li>
+      <li>
+        <span class="h-name">Prof. Uy Dong Sohn Scholarship</span>
+        <span class="h-date">2025</span>
+      </li>
+      <li>
+        <span class="h-name">Changwon City Scholarship</span>
+        <span class="h-date">2024</span>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Last updated · July 2026</span>
+    <button class="print-btn" onclick="window.print()">Save as PDF</button>
+  </footer>
+
+</div>
+</body>
+</html>
