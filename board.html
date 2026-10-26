@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doyoung Lee — Board</title>
+<style>
+  :root{
+    --paper: #F7F5EF;
+    --paper-raised: #FFFFFF;
+    --ink: #1C2321;
+    --accent: #4B6FA0;
+    --line: #DAD4C5;
+    --muted: #726C5E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page{ max-width: 1200px; margin: 0 auto; padding: 88px 28px 120px; }
+
+  .tabs{ display: flex; gap: 22px; margin-bottom: 48px; border-bottom: 1px solid var(--line); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .tabs a{ color: var(--muted); text-decoration: none; padding-bottom: 10px; margin-bottom: -1px; border-bottom: 1.5px solid transparent; }
+  .tabs a:hover{ color: var(--accent); }
+  .tabs a[aria-current]{ color: var(--ink); border-color: var(--accent); }
+
+  h1{ font-weight: 600; font-size: clamp(32px, 5vw, 44px); margin: 0 0 32px; }
+
+  .files{ list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .files li{ display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .files a{ color: var(--ink); text-decoration: none; overflow-wrap: anywhere; }
+  .files a:hover{ color: var(--accent); }
+  .size{ font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .note{ color: var(--muted); font-size: 14px; padding: 14px 0; }
+
+  @media (max-width: 560px){ .page{ padding: 40px 14px 64px; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="tabs"><a href="./">CV</a><a href="board.html" aria-current="page">Board</a></nav>
+
+  <h1>Board</h1>
+  <ul class="files" id="files"><li class="note">Loading…</li></ul>
+
+</div>
+<script>
+  // Lists everything in the repo's board/ folder. Upload on github.com → board → Add file → Upload files.
+  const list = document.getElementById('files');
+  const kb = n => n < 1048576 ? (n / 1024).toFixed(0) + ' KB' : (n / 1048576).toFixed(1) + ' MB';
+
+  fetch('https://api.github.com/repos/good-boy-twist/CV/contents/board')
+    .then(r => r.ok ? r.json() : [])
+    .then(items => {
+      const files = items.filter(f => f.type === 'file' && !f.name.startsWith('.'));
+      list.replaceChildren(...(files.length ? files.map(f => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = 'board/' + encodeURIComponent(f.name);
+        a.textContent = f.name;
+        a.target = '_blank';
+        const size = document.createElement('span');
+        size.className = 'size';
+        size.textContent = kb(f.size);
+        li.append(a, size);
+        return li;
+      }) : [Object.assign(document.createElement('li'), { className: 'note', textContent: 'No files yet.' })]));
+    })
+    .catch(() => { list.innerHTML = '<li class="note">Could not load files.</li>'; });
+</script>
+</body>
+</html>
