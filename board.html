@@ -10,6 +10,7 @@
     --paper-raised: #FFFFFF;
     --ink: #1C2321;
     --accent: #4B6FA0;
+    --accent-soft: rgba(75,111,160,0.10);
     --line: #DAD4C5;
     --muted: #726C5E;
   }
@@ -30,16 +31,46 @@
   .tabs a:hover{ color: var(--accent); }
   .tabs a[aria-current]{ color: var(--ink); border-color: var(--accent); }
 
-  h1{ font-weight: 600; font-size: clamp(32px, 5vw, 44px); margin: 0 0 32px; }
+  h1{ font-weight: 600; font-size: clamp(32px, 5vw, 44px); margin: 0 0 8px; }
+  .lede{ color: var(--muted); font-size: 15px; margin: 0 0 44px; }
 
-  .files{ list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-  .files li{ display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
-  .files a{ color: var(--ink); text-decoration: none; overflow-wrap: anywhere; }
-  .files a:hover{ color: var(--accent); }
-  .size{ font-size: 12px; color: var(--muted); white-space: nowrap; }
-  .note{ color: var(--muted); font-size: 14px; padding: 14px 0; }
+  .items{ list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
 
-  @media (max-width: 560px){ .page{ padding: 40px 14px 64px; } }
+  .item{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 28px;
+    padding: 24px 26px;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+
+  .item-title{ font-size: 18.5px; font-weight: 600; margin: 0 0 2px; }
+  .item-meta{ font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+  .item-desc{ font-size: 14.5px; color: var(--ink); margin: 0; max-width: 72ch; }
+
+  .download{
+    flex-shrink: 0;
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 7px 16px;
+    white-space: nowrap;
+  }
+  .download:hover{ color: var(--paper-raised); background: var(--accent); }
+  .download .size{ font-size: 11px; opacity: 0.75; }
+
+  @media (max-width: 640px){
+    .page{ padding: 40px 14px 64px; }
+    .item{ flex-direction: column; gap: 16px; padding: 20px; }
+  }
 </style>
 </head>
 <body>
@@ -48,32 +79,30 @@
   <nav class="tabs"><a href="./">CV</a><a href="board.html" aria-current="page">Board</a></nav>
 
   <h1>Board</h1>
-  <ul class="files" id="files"><li class="note">Loading…</li></ul>
+  <p class="lede">Presentation slides and other materials from competitions, internships, and coursework.</p>
+
+  <ul class="items">
+
+    <li class="item">
+      <div>
+        <h2 class="item-title">Formulation Orchestration with Rule-grounded Multi-agent (Formula 1)</h2>
+        <p class="item-meta">Award ceremony talk · 4th AI Drug Discovery Competition (JUMP AI 2026) · Nov 2026</p>
+        <p class="item-desc">Grand Prize presentation on a multi-agent system for pharmaceutical formulation design. Combines LLM reasoning for candidate prescriptions with a deterministic CSV rulebook that screens regulatory and incompatibility violations, then derives a QbD design space through lab-in-the-loop experiment requests.</p>
+      </div>
+      <a class="download" href="board/jumpai-2026-formula1.pdf" download>Download PDF <span class="size">1.1 MB</span></a>
+    </li>
+
+    <li class="item">
+      <div>
+        <h2 class="item-title">STING Agonist Design with ChemDesign</h2>
+        <p class="item-meta">Final internship presentation · ParkLab, KIST · Aug 2026</p>
+        <p class="item-desc">Validation study of a generative molecular design model for STING modulators. Built a three-stage pipeline screening generated ligands by physicochemical quality, key-residue contacts across STING binding pockets, and AlphaFold3 pose reproducibility. Public version: unpublished results are redacted.</p>
+      </div>
+      <a class="download" href="board/kist-sting-chemdesign-2026.pptx" download>Download PPTX <span class="size">12 MB</span></a>
+    </li>
+
+  </ul>
 
 </div>
-<script>
-  // Lists everything in the repo's board/ folder. Upload on github.com → board → Add file → Upload files.
-  const list = document.getElementById('files');
-  const kb = n => n < 1048576 ? (n / 1024).toFixed(0) + ' KB' : (n / 1048576).toFixed(1) + ' MB';
-
-  fetch('https://api.github.com/repos/good-boy-twist/CV/contents/board')
-    .then(r => r.ok ? r.json() : [])
-    .then(items => {
-      const files = items.filter(f => f.type === 'file' && !f.name.startsWith('.'));
-      list.replaceChildren(...(files.length ? files.map(f => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = 'board/' + encodeURIComponent(f.name);
-        a.textContent = f.name;
-        a.target = '_blank';
-        const size = document.createElement('span');
-        size.className = 'size';
-        size.textContent = kb(f.size);
-        li.append(a, size);
-        return li;
-      }) : [Object.assign(document.createElement('li'), { className: 'note', textContent: 'No files yet.' })]));
-    })
-    .catch(() => { list.innerHTML = '<li class="note">Could not load files.</li>'; });
-</script>
 </body>
 </html>
